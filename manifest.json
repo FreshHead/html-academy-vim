@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "HTML Academy Vim Mode",
+  "version": "1.0",
+  "description": "Автоматически активирует Vim mode в ACE Editor на HTML Academy",
+  "permissions": [],
+  "host_permissions": [
+    "https://htmlacademy.ru/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://htmlacademy.ru/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["https://htmlacademy.ru/*"]
+    }
+  ]
+}
