@@ -6,7 +6,7 @@
 
   // Хранилище для всех редакторов
   const editors = new Set();
-  let currentMode = "normal"; // 'normal' или 'insert'
+  let currentMode = "normal"; // 'normal' или 'insert' (начинаем с normal)
 
   function activateVimMode() {
     // Проверяем наличие ace
@@ -65,9 +65,8 @@
         `[Vim Mode] ✓ Activated Vim mode for ${activatedCount} editor(s)`,
       );
 
-      // Входим в insert mode для всех редакторов
+      // Показываем уведомление (редакторы остаются в normal mode)
       setTimeout(function () {
-        enterInsertModeAll();
         showNotification(
           `✓ Vim mode активирован для ${editors.size} редактора(ов)!`,
         );
@@ -227,6 +226,28 @@
   // Глобальный обработчик клавиш для фокуса на редакторе
   function setupGlobalKeyBindings() {
     document.addEventListener('keydown', function(e) {
+      // Shift + H - клик по теории
+      if (e.shiftKey && e.key === 'H' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        e.preventDefault();
+        
+        const theoryButton = document.querySelector('.course-theory');
+        if (theoryButton) {
+          theoryButton.click();
+        }
+        return;
+      }
+      
+      // Shift + Enter - клик по кнопке "Далее"
+      if (e.shiftKey && e.key === 'Enter' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        e.preventDefault();
+        
+        const nextButton = document.querySelector('.course-goals__button--next');
+        if (nextButton) {
+          nextButton.click();
+        }
+        return;
+      }
+      
       // Shift + J - фокус на html-editor
       if (e.shiftKey && e.key === 'J' && !e.ctrlKey && !e.altKey && !e.metaKey) {
         e.preventDefault();

@@ -52,6 +52,8 @@ Test directly on htmlacademy.ru by:
 - Handles editor resets and new editor creation
 
 ### Global Keybindings
+- **Shift+H**: Click theory button (`.course-theory`)
+- **Shift+Enter**: Click next button (`.course-goals__button--next`)
 - **Shift+J**: Focus ace editor inside `#html-editor` element
 - **Shift+K**: Focus ace editor inside `#css-editor` element
 
