@@ -225,71 +225,119 @@
 
   // Глобальный обработчик клавиш для фокуса на редакторе
   function setupGlobalKeyBindings() {
-    document.addEventListener('keydown', function(e) {
-      // Shift + H - клик по теории
-      if (e.shiftKey && e.key === 'H' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        e.preventDefault();
-        
-        const theoryButton = document.querySelector('.course-theory');
-        if (theoryButton) {
-          theoryButton.click();
-        }
-        return;
-      }
-      
-      // Shift + Enter - клик по кнопке "Далее"
-      if (e.shiftKey && e.key === 'Enter' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        e.preventDefault();
-        
-        const nextButton = document.querySelector('.course-goals__button--next');
-        if (nextButton) {
-          nextButton.click();
-        }
-        return;
-      }
-      
-      // Shift + J - фокус на html-editor
-      if (e.shiftKey && e.key === 'J' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        e.preventDefault();
-        
-        const htmlEditorContainer = document.getElementById('html-editor');
-        if (htmlEditorContainer) {
-          // Сам контейнер может быть ace editor
-          if (htmlEditorContainer.classList.contains('ace_editor') && htmlEditorContainer.env && htmlEditorContainer.env.editor) {
-            htmlEditorContainer.env.editor.focus();
-            return;
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        // Shift + H - клик по теории
+        if (
+          e.shiftKey &&
+          e.key === "H" &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          !e.metaKey
+        ) {
+          e.preventDefault();
+
+          const theoryButton = document.querySelector(".course-theory");
+          if (theoryButton) {
+            theoryButton.click();
           }
-          
-          // Или ищем внутри контейнера
-          const aceEditor = htmlEditorContainer.querySelector('.ace_editor');
-          if (aceEditor && aceEditor.env && aceEditor.env.editor) {
-            aceEditor.env.editor.focus();
-            return;
+          return;
+        }
+
+        // Shift + Enter - клик по кнопке "Далее"
+        if (
+          e.shiftKey &&
+          e.key === "Enter" &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          !e.metaKey
+        ) {
+          e.preventDefault();
+
+          const nextButton = document.querySelector(
+            ".course-goals__button--next",
+          );
+          const submitChalangeButton = document.querySelector(
+            ".course-challenge-controls__button",
+          );
+          if (nextButton) {
+            nextButton.click();
+          } else if (submitChalangeButton) {
+            debugger;
+            if (submitChalangeButton.classList.contains("button--inactive")) {
+              document.querySelector(".main-nav__course-button--next").click();
+            } else {
+              submitChalangeButton.click();
+            }
+          }
+          return;
+        }
+
+        // Shift + J - фокус на html-editor
+        if (
+          e.shiftKey &&
+          e.key === "J" &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          !e.metaKey
+        ) {
+          e.preventDefault();
+
+          const htmlEditorContainer = document.getElementById("html-editor");
+          if (htmlEditorContainer) {
+            // Сам контейнер может быть ace editor
+            if (
+              htmlEditorContainer.classList.contains("ace_editor") &&
+              htmlEditorContainer.env &&
+              htmlEditorContainer.env.editor
+            ) {
+              htmlEditorContainer.env.editor.focus();
+              return;
+            }
+
+            // Или ищем внутри контейнера
+            const aceEditor = htmlEditorContainer.querySelector(".ace_editor");
+            if (aceEditor && aceEditor.env && aceEditor.env.editor) {
+              aceEditor.env.editor.focus();
+              return;
+            }
           }
         }
-      }
-      
-      // Shift + K - фокус на css-editor
-      if (e.shiftKey && e.key === 'K' && !e.ctrlKey && !e.altKey && !e.metaKey) {
-        e.preventDefault();
-        
-        const cssEditorContainer = document.getElementById('css-editor');
-        if (cssEditorContainer) {
-          // Сам контейнер может быть ace editor
-          if (cssEditorContainer.classList.contains('ace_editor') && cssEditorContainer.env && cssEditorContainer.env.editor) {
-            cssEditorContainer.env.editor.focus();
-            return;
-          }
-          
-          // Или ищем внутри контейнера
-          const aceEditor = cssEditorContainer.querySelector('.ace_editor');
-          if (aceEditor && aceEditor.env && aceEditor.env.editor) {
-            aceEditor.env.editor.focus();
-            return;
+
+        // Shift + K - фокус на css-editor
+        if (
+          e.shiftKey &&
+          e.key === "K" &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          !e.metaKey
+        ) {
+          e.preventDefault();
+
+          const cssEditorContainer = document.getElementById("css-editor");
+          if (cssEditorContainer) {
+            // Сам контейнер может быть ace editor
+            if (
+              cssEditorContainer.classList.contains("ace_editor") &&
+              cssEditorContainer.env &&
+              cssEditorContainer.env.editor
+            ) {
+              cssEditorContainer.env.editor.focus();
+              return;
+            }
+
+            // Или ищем внутри контейнера
+            const aceEditor = cssEditorContainer.querySelector(".ace_editor");
+            if (aceEditor && aceEditor.env && aceEditor.env.editor) {
+              aceEditor.env.editor.focus();
+              return;
+            }
           }
         }
-      }
-    }, true); // Capture phase
+      },
+      true,
+    ); // Capture phase
   }
 
   // Следим за изменениями DOM (новые редакторы)
