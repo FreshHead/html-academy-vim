@@ -136,29 +136,6 @@
     });
   }
 
-  function enterInsertModeAll() {
-    let successCount = 0;
-
-    editors.forEach((editor) => {
-      try {
-        const CodeMirror = editor.state?.cm?.constructor;
-        if (CodeMirror?.Vim) {
-          CodeMirror.Vim.handleKey(editor.state.cm, "i");
-          successCount++;
-        }
-      } catch (e) {
-        console.error("[Vim Mode] Error entering insert mode:", e);
-      }
-    });
-
-    if (successCount > 0) {
-      currentMode = "insert";
-      console.log(
-        `[Vim Mode] ✓ Entered INSERT mode for ${successCount} editor(s)`,
-      );
-    }
-  }
-
   function showNotification(message) {
     const notification = document.createElement("div");
     notification.textContent = message;
