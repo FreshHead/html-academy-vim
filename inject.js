@@ -261,6 +261,7 @@
         ) {
           e.preventDefault();
 
+          document.querySelector("[data-editor='html']").click();
           const htmlEditorContainer = document.getElementById("html-editor");
           if (htmlEditorContainer) {
             // Сам контейнер может быть ace editor
@@ -292,6 +293,7 @@
         ) {
           e.preventDefault();
 
+          document.querySelector("[data-editor='css']").click();
           const cssEditorContainer = document.getElementById("css-editor");
           if (cssEditorContainer) {
             // Сам контейнер может быть ace editor
