@@ -219,6 +219,7 @@
           if (theoryButton) {
             theoryButton.click();
           }
+          document.querySelector(".course-theory__content").focus(); // Фокусируем теории чтобы можно было скроллить стрелочками.
           return;
         }
 
