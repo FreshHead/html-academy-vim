@@ -57,6 +57,11 @@
       // Устанавливаем обработчик для отслеживания изменения режима
       setupModeSync(editor);
 
+      // Фокусируем страницу с теорией чтобы можно было скролить стрелками.
+      if (document.querySelector(".course-theory__content")) {
+        document.querySelector(".course-theory__content").focus();
+      }
+
       activatedCount++;
     });
 
@@ -242,7 +247,6 @@
           if (nextButton) {
             nextButton.click();
           } else if (submitChalangeButton) {
-            debugger;
             if (submitChalangeButton.classList.contains("button--inactive")) {
               document.querySelector(".main-nav__course-button--next").click();
             } else {
