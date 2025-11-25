@@ -261,6 +261,8 @@
           !e.metaKey
         ) {
           e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
 
           const nextButton = document.querySelector(
             ".course-goals__button--next",
