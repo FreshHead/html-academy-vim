@@ -231,6 +231,19 @@
 
   // Глобальный обработчик клавиш для фокуса на редакторе
   function setupGlobalKeyBindings() {
+    // Специальный обработчик для блокировки Shift+Enter в формах
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        if (e.shiftKey && e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
+      },
+      true // Capture phase - раньше всех
+    );
+
     document.addEventListener(
       "keydown",
       function (e) {
@@ -252,10 +265,10 @@
           return;
         }
 
-        // Shift + Enter - клик по кнопке "Далее"
+        // Shift + Space - клик по кнопке "Далее"
         if (
           e.shiftKey &&
-          e.key === "Enter" &&
+          e.key === " " &&
           !e.ctrlKey &&
           !e.altKey &&
           !e.metaKey
