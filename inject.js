@@ -205,6 +205,23 @@
   // Устанавливаем глобальные клавиатурные сочетания (отложенно)
   setTimeout(setupGlobalKeyBindings, 1000);
 
+  // Функция для проверки, находится ли активный редактор в insert mode
+  function isActiveEditorInInsertMode() {
+    const activeElement = document.activeElement;
+    
+    // Проверяем, является ли активный элемент ace редактором
+    const aceEditor = activeElement.closest('.ace_editor');
+    if (!aceEditor || !aceEditor.env || !aceEditor.env.editor) {
+      return false;
+    }
+    
+    const editor = aceEditor.env.editor;
+    const vimState = editor.state?.cm?.state?.vim;
+    
+    // Возвращаем true если редактор в insert mode
+    return vimState && vimState.insertMode;
+  }
+
   // Вспомогательная функция для фокуса на редакторе
   function focusEditor(editorSelector, containerId) {
     document.querySelector(editorSelector).click();
@@ -247,7 +264,7 @@
     document.addEventListener(
       "keydown",
       function (e) {
-        // Shift + H - клик по теории
+        // Shift + H - клик по теории (только если активный редактор не в insert mode)
         if (
           e.shiftKey &&
           e.key === "H" &&
@@ -255,6 +272,11 @@
           !e.altKey &&
           !e.metaKey
         ) {
+          // Проверяем, не находится ли активный редактор в insert mode
+          if (isActiveEditorInInsertMode()) {
+            return; // Разрешаем ввод заглавной H
+          }
+          
           e.preventDefault();
 
           const theoryButton = document.querySelector(".course-theory");
@@ -295,7 +317,7 @@
           return;
         }
 
-        // Shift + J - фокус на html-editor
+        // Shift + J - фокус на html-editor (только если активный редактор не в insert mode)
         if (
           e.shiftKey &&
           e.key === "J" &&
@@ -303,12 +325,17 @@
           !e.altKey &&
           !e.metaKey
         ) {
+          // Проверяем, не находится ли активный редактор в insert mode
+          if (isActiveEditorInInsertMode()) {
+            return; // Разрешаем ввод заглавной J
+          }
+          
           e.preventDefault();
           focusEditor("[data-editor='html']", "html-editor");
           return;
         }
 
-        // Shift + K - фокус на css-editor
+        // Shift + K - фокус на css-editor (только если активный редактор не в insert mode)
         if (
           e.shiftKey &&
           e.key === "K" &&
@@ -316,12 +343,17 @@
           !e.altKey &&
           !e.metaKey
         ) {
+          // Проверяем, не находится ли активный редактор в insert mode
+          if (isActiveEditorInInsertMode()) {
+            return; // Разрешаем ввод заглавной K
+          }
+          
           e.preventDefault();
           focusEditor("[data-editor='css']", "css-editor");
           return;
         }
 
-        // Shift + L - фокус на js-editor
+        // Shift + L - фокус на js-editor (только если активный редактор не в insert mode)
         if (
           e.shiftKey &&
           e.key === "L" &&
@@ -329,6 +361,11 @@
           !e.altKey &&
           !e.metaKey
         ) {
+          // Проверяем, не находится ли активный редактор в insert mode
+          if (isActiveEditorInInsertMode()) {
+            return; // Разрешаем ввод заглавной L
+          }
+          
           e.preventDefault();
           focusEditor("[data-editor='js']", "js-editor");
           return;
