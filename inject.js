@@ -208,16 +208,16 @@
   // Функция для проверки, находится ли активный редактор в insert mode
   function isActiveEditorInInsertMode() {
     const activeElement = document.activeElement;
-    
+
     // Проверяем, является ли активный элемент ace редактором
-    const aceEditor = activeElement.closest('.ace_editor');
+    const aceEditor = activeElement.closest(".ace_editor");
     if (!aceEditor || !aceEditor.env || !aceEditor.env.editor) {
       return false;
     }
-    
+
     const editor = aceEditor.env.editor;
     const vimState = editor.state?.cm?.state?.vim;
-    
+
     // Возвращаем true если редактор в insert mode
     return vimState && vimState.insertMode;
   }
@@ -252,13 +252,19 @@
     document.addEventListener(
       "keydown",
       function (e) {
-        if (e.shiftKey && e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        if (
+          e.shiftKey &&
+          e.key === " " &&
+          !e.ctrlKey &&
+          !e.altKey &&
+          !e.metaKey
+        ) {
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
         }
       },
-      true // Capture phase - раньше всех
+      true, // Capture phase - раньше всех
     );
 
     document.addEventListener(
@@ -276,7 +282,7 @@
           if (isActiveEditorInInsertMode()) {
             return; // Разрешаем ввод заглавной H
           }
-          
+
           e.preventDefault();
 
           const theoryButton = document.querySelector(".course-theory");
@@ -308,11 +314,7 @@
           if (nextButton) {
             nextButton.click();
           } else if (submitChalangeButton) {
-            if (submitChalangeButton.classList.contains("button--inactive")) {
-              document.querySelector(".main-nav__course-button--next").click();
-            } else {
-              submitChalangeButton.click();
-            }
+            submitChalangeButton.click();
           }
           return;
         }
@@ -329,7 +331,7 @@
           if (isActiveEditorInInsertMode()) {
             return; // Разрешаем ввод заглавной J
           }
-          
+
           e.preventDefault();
           focusEditor("[data-editor='html']", "html-editor");
           return;
@@ -347,7 +349,7 @@
           if (isActiveEditorInInsertMode()) {
             return; // Разрешаем ввод заглавной K
           }
-          
+
           e.preventDefault();
           focusEditor("[data-editor='css']", "css-editor");
           return;
@@ -365,7 +367,7 @@
           if (isActiveEditorInInsertMode()) {
             return; // Разрешаем ввод заглавной L
           }
-          
+
           e.preventDefault();
           focusEditor("[data-editor='js']", "js-editor");
           return;
