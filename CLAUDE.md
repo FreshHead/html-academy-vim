@@ -36,7 +36,7 @@ Test directly on htmlacademy.ru by:
 1. Loading the extension
 2. Navigating to any HTML Academy exercise with code editors
 3. Verify Vim mode activates automatically
-4. Test Shift+H shortcut to focus HTML editor
+4. Test Shift+Space shortcut to go to next step
 
 ### Debugging
 - Use browser DevTools on htmlacademy.ru pages
@@ -53,9 +53,10 @@ Test directly on htmlacademy.ru by:
 
 ### Global Keybindings
 - **Shift+H**: Click theory button (`.course-theory`)
-- **Shift+Enter**: Click next button (`.course-goals__button--next`)
+- **Shift+Space**: Click next step button (`.course-goals__button--next`)
 - **Shift+J**: Focus ace editor inside `#html-editor` element
 - **Shift+K**: Focus ace editor inside `#css-editor` element
+- **Shift+L**: Focus ace editor inside `#js-editor` element
 
 ### Mode Synchronization
 - Intercepts keyboard events via `onCommandKey` override

@@ -248,28 +248,16 @@
 
   // Глобальный обработчик клавиш для фокуса на редакторе
   function setupGlobalKeyBindings() {
-    // Специальный обработчик для блокировки Shift+Enter в формах
-    document.addEventListener(
-      "keydown",
-      function (e) {
-        if (
-          e.shiftKey &&
-          e.key === " " &&
-          !e.ctrlKey &&
-          !e.altKey &&
-          !e.metaKey
-        ) {
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-        }
-      },
-      true, // Capture phase - раньше всех
-    );
+    console.log("[Vim Mode] Setting up global key bindings");
 
     document.addEventListener(
       "keydown",
       function (e) {
+        // Отладка - логируем все Shift+клавиши
+        if (e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+          console.log("[Vim Mode] Key pressed: Shift+" + e.key);
+        }
+
         // Shift + H - клик по теории (только если активный редактор не в insert mode)
         if (
           e.shiftKey &&
@@ -301,9 +289,18 @@
           !e.altKey &&
           !e.metaKey
         ) {
+          console.log(
+            "[Vim Mode] Shift+Space pressed, looking for next button",
+          );
+
+          // Не блокируем если в insert mode
+          if (isActiveEditorInInsertMode()) {
+            console.log("[Vim Mode] In insert mode, allowing default behavior");
+            return;
+          }
+
           e.preventDefault();
           e.stopPropagation();
-          e.stopImmediatePropagation();
 
           const nextButton = document.querySelector(
             ".course-goals__button--next",
@@ -311,10 +308,26 @@
           const submitChalangeButton = document.querySelector(
             ".course-challenge-controls__button",
           );
+
           if (nextButton) {
+            console.log("[Vim Mode] Found next button, clicking");
             nextButton.click();
+            setTimeout(() => nextButton.click(), 50);
           } else if (submitChalangeButton) {
-            submitChalangeButton.click();
+            if (submitChalangeButton.classList.contains("button--inactive")) {
+              document
+                .querySelector(".main-nav__course-button--active")
+                .click();
+            } else {
+              console.log("[Vim Mode] Found submit challenge button, clicking");
+              submitChalangeButton.click();
+            }
+            setTimeout(() => submitChalangeButton.click(), 50);
+          } else {
+            console.log(
+              "[Vim Mode] Next button not found. Available buttons:",
+              document.querySelectorAll('button, [role="button"]'),
+            );
           }
           return;
         }
